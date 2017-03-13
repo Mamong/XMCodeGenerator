@@ -12,8 +12,11 @@
 
 @interface CodeGenerator : NSObject
 
++ (void)checkAPICommand:(XCSourceEditorCommandInvocation*)invocation;
+
 + (void)cellGeneratorCommand:(XCSourceEditorCommandInvocation*)invocation;
 
-+ (void)checkAPICommand:(XCSourceEditorCommandInvocation*)invocation;
++ (void)viewControllerGeneratorCommand:(XCSourceEditorCommandInvocation*)invocation;
+
 
 @end

@@ -44,6 +44,14 @@
 					<key>XCSourceEditorCommandName</key>
 					<string>GenerateCell</string>
 				</dict>
+				<dict>
+					<key>XCSourceEditorCommandClassName</key>
+					<string>SourceEditorCommand</string>
+					<key>XCSourceEditorCommandIdentifier</key>
+					<string>$(PRODUCT_BUNDLE_IDENTIFIER).GenerateVC</string>
+					<key>XCSourceEditorCommandName</key>
+					<string>GenerateVC</string>
+				</dict>
 			</array>
 			<key>XCSourceEditorExtensionPrincipalClass</key>
 			<string>SourceEditorExtension</string>

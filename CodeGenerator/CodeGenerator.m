@@ -8,60 +8,14 @@
 
 #import "CodeGenerator.h"
 #import "XMCellTemplate.h"
+#import "XMViewControllerTemplate.h"
+
+@interface CodeGenerator ()
+
+@end
 
 
 @implementation CodeGenerator
-
-+ (void)cellGeneratorCommand:(XCSourceEditorCommandInvocation*)invocation
-{
-    XCSourceTextBuffer *buffer = invocation.buffer;
-    //NSString *complete = buffer.completeBuffer;
-    XCSourceTextRange *current =  buffer.selections[0];
-    NSInteger currentLine = current.start.line;
-    //[buffer.lines insertObject:complete atIndex:currentLine];
-    
-    NSMutableArray *properties = [NSMutableArray array];
-    for (int i = 0; i < buffer.lines.count; i++) {
-        NSString *line = [buffer.lines objectAtIndex:i];
-        line = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        if ([line hasPrefix:@"@property"]) {
-            XMSourceOCProperty *property = [XMSourceOCProperty new];
-            NSRange range = [line rangeOfString:@")"];
-            range.location += 1;
-            range.length = line.length - range.location -1;
-            NSString *propertyString = [line substringWithRange:range];
-            propertyString = [propertyString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            NSArray *components;
-            if ([propertyString rangeOfString:@"*"].location != NSNotFound) {
-                property.isObject = YES;
-                components = [propertyString componentsSeparatedByString:@"*"];
-                
-            }else{
-                property.isObject = NO;
-                components = [propertyString componentsSeparatedByString:@" "];
-            }
-            NSString  *propertyClass = [[components firstObject] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            NSString  *propertyName = [[components lastObject] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            property.propertyName = propertyName;
-            property.className = propertyClass;
-            [properties addObject:property];
-        }
-        if ([line hasPrefix:@"@end"]) {
-            break;
-        }
-    }
-    if (properties.count == 0) {
-        return;
-    }
-    XMCellTemplate *template = [XMCellTemplate templateWithProperties:properties];
-    [template generateLines];
-    NSArray *lines = template.lines;
-
-    NSRange range = NSMakeRange(currentLine,[lines count]);
-    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
-    [buffer.lines insertObjects:lines atIndexes:indexSet];
-
-}
 
 + (void)checkAPICommand:(XCSourceEditorCommandInvocation*)invocation
 {
@@ -89,7 +43,7 @@
             }else{
                 break;
             }
-
+            
         }else if ([line hasPrefix:@"[[TTNetworkManager"]) {
             for (NSString *api in apis) {
                 if ([line rangeOfString:api].location != NSNotFound) {
@@ -112,4 +66,79 @@
     }
 }
 
++ (void)cellGeneratorCommand:(XCSourceEditorCommandInvocation*)invocation
+{
+    XCSourceTextBuffer *buffer = invocation.buffer;
+    //NSString *complete = buffer.completeBuffer;
+    XCSourceTextRange *current =  buffer.selections[0];
+    NSInteger currentLine = current.start.line;
+    //[buffer.lines insertObject:complete atIndex:currentLine];
+    NSArray *properties = [CodeGenerator parsePropertiesFromLines:buffer.lines];
+    if (properties.count == 0) {
+        return;
+    }
+    XMCellTemplate *template = [XMCellTemplate templateWithProperties:properties];
+    [template generateLines];
+    NSArray *lines = template.lines;
+
+    NSRange range = NSMakeRange(currentLine,[lines count]);
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
+    [buffer.lines insertObjects:lines atIndexes:indexSet];
+}
+
++ (void)viewControllerGeneratorCommand:(XCSourceEditorCommandInvocation*)invocation
+{
+    XCSourceTextBuffer *buffer = invocation.buffer;
+    //NSString *complete = buffer.completeBuffer;
+    XCSourceTextRange *current =  buffer.selections[0];
+    NSInteger currentLine = current.start.line;
+    //[buffer.lines insertObject:complete atIndex:currentLine];
+    NSArray *properties = [CodeGenerator parsePropertiesFromLines:buffer.lines];
+    if (properties.count == 0) {
+        return;
+    }
+    XMViewControllerTemplate *template = [XMViewControllerTemplate templateWithProperties:properties];
+    [template generateLines];
+    NSArray *lines = template.lines;
+    
+    NSRange range = NSMakeRange(currentLine,[lines count]);
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
+    [buffer.lines insertObjects:lines atIndexes:indexSet];
+}
+
+#pragma mark - Private
++ (NSArray*)parsePropertiesFromLines:(NSArray*)lines
+{
+    NSMutableArray *properties = [NSMutableArray array];
+    for (int i = 0; i < lines.count; i++) {
+        NSString *line = [lines objectAtIndex:i];
+        line = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if ([line hasPrefix:@"@property"]) {
+            XMSourceOCProperty *property = [XMSourceOCProperty new];
+            NSRange range = [line rangeOfString:@")"];
+            range.location += 1;
+            range.length = line.length - range.location -1;
+            NSString *propertyString = [line substringWithRange:range];
+            propertyString = [propertyString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            NSArray *components;
+            if ([propertyString rangeOfString:@"*"].location != NSNotFound) {
+                property.isObject = YES;
+                components = [propertyString componentsSeparatedByString:@"*"];
+                
+            }else{
+                property.isObject = NO;
+                components = [propertyString componentsSeparatedByString:@" "];
+            }
+            NSString  *propertyClass = [[components firstObject] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            NSString  *propertyName = [[components lastObject] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            property.propertyName = propertyName;
+            property.className = propertyClass;
+            [properties addObject:property];
+        }
+        if ([line hasPrefix:@"@end"]) {
+            break;
+        }
+    }
+    return properties;
+}
 @end

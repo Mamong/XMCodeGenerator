@@ -40,7 +40,7 @@
     [lines addObject:@"\tself.backgroundColor = Color_White;"];
     for (int i = 0; i < properties.count; i++) {
         XMSourceOCProperty *property = properties[i];
-        if (property.isObject && ![property.className hasPrefix:@"NS"]) {
+        if (property.inferType == XMVariableInferTypeView) {
             [lines addObject:[NSString stringWithFormat:@"\t[self cellAddSubView:self.%@];",property.propertyName]];
         }
     }
@@ -65,7 +65,7 @@
     return @[@"+ (CGFloat)heightForCell:(id)cellData",
              @"{",
              @"\tCGFloat height = 0;",
-             @"\tif (self.cellData) {",
+             @"\tif (cellData) {",
              @"\t\theight = 46;",
              @"\t}",
              @"}",

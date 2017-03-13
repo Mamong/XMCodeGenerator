@@ -22,7 +22,11 @@
     }else if ([identifier hasSuffix:@"CheckAPI"]) {
         //添加注释
         [CodeGenerator checkAPICommand:invocation];
+    }else if ([identifier hasSuffix:@"GenerateVC"]) {
+        //生成VC代码
+        [CodeGenerator viewControllerGeneratorCommand:invocation];
     }
+
 
     completionHandler(nil);
 }

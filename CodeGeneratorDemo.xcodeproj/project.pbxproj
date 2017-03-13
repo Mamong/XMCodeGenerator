@@ -20,6 +20,7 @@
 		046004601E75469200E23AD6 /* XMCellTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0460045A1E75469200E23AD6 /* XMCellTemplate.m */; };
 		046004611E75469200E23AD6 /* XMSourceOCProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 0460045C1E75469200E23AD6 /* XMSourceOCProperty.m */; };
 		046004621E75469200E23AD6 /* XMSourceTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0460045E1E75469200E23AD6 /* XMSourceTemplate.m */; };
+		04F873AE1E766483000A5CD8 /* XMViewControllerTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F873AD1E766483000A5CD8 /* XMViewControllerTemplate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,8 @@
 		0460045C1E75469200E23AD6 /* XMSourceOCProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMSourceOCProperty.m; sourceTree = "<group>"; };
 		0460045D1E75469200E23AD6 /* XMSourceTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMSourceTemplate.h; sourceTree = "<group>"; };
 		0460045E1E75469200E23AD6 /* XMSourceTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMSourceTemplate.m; sourceTree = "<group>"; };
+		04F873AC1E766483000A5CD8 /* XMViewControllerTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMViewControllerTemplate.h; sourceTree = "<group>"; };
+		04F873AD1E766483000A5CD8 /* XMViewControllerTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMViewControllerTemplate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,12 +173,14 @@
 			children = (
 				046004571E75469200E23AD6 /* NSString+MC.h */,
 				046004581E75469200E23AD6 /* NSString+MC.m */,
-				046004591E75469200E23AD6 /* XMCellTemplate.h */,
-				0460045A1E75469200E23AD6 /* XMCellTemplate.m */,
 				0460045B1E75469200E23AD6 /* XMSourceOCProperty.h */,
 				0460045C1E75469200E23AD6 /* XMSourceOCProperty.m */,
 				0460045D1E75469200E23AD6 /* XMSourceTemplate.h */,
 				0460045E1E75469200E23AD6 /* XMSourceTemplate.m */,
+				046004591E75469200E23AD6 /* XMCellTemplate.h */,
+				0460045A1E75469200E23AD6 /* XMCellTemplate.m */,
+				04F873AC1E766483000A5CD8 /* XMViewControllerTemplate.h */,
+				04F873AD1E766483000A5CD8 /* XMViewControllerTemplate.m */,
 			);
 			path = Template;
 			sourceTree = "<group>";
@@ -297,6 +302,7 @@
 				046004621E75469200E23AD6 /* XMSourceTemplate.m in Sources */,
 				046004471E75462E00E23AD6 /* SourceEditorExtension.m in Sources */,
 				0460044A1E75462E00E23AD6 /* SourceEditorCommand.m in Sources */,
+				04F873AE1E766483000A5CD8 /* XMViewControllerTemplate.m in Sources */,
 				046004611E75469200E23AD6 /* XMSourceOCProperty.m in Sources */,
 				0460045F1E75469200E23AD6 /* NSString+MC.m in Sources */,
 			);
