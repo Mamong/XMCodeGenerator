@@ -78,13 +78,11 @@
 
         }
         else{
-            //            if ([property.className hasPrefix:@"UI"]) {
-            //
-            //            }else if ([property.className hasPrefix:@"NS"]) {
-            //
-            //            }else{
-            return [XMSourceTemplate commonTemplatelines:property];
-            //            }
+            if (property.inferType ==  XMVariableInferTypeView) {
+                return [XMSourceTemplate commonViewTemplatelines:property];
+            }else{
+                //return [XMSourceTemplate commonTemplatelines:property];
+            }
         }
     }
     return lines;
@@ -254,13 +252,26 @@
              ];
 }
 
++ (NSArray*)commonViewTemplatelines:(XMSourceOCProperty*)property
+{
+    return @[[NSString stringWithFormat:@"- (%@ *)%@",property.className,property.propertyName],
+             @"{",
+             [NSString stringWithFormat:@"\tif (!_%@) {",property.propertyName],
+             [NSString stringWithFormat:@"\t\t%@ *%@ = [[%@ alloc] initWithFrame:CGRectMake(12, 0, 44, 44)];",property.className,property.propertyName,property.className],
+             [NSString stringWithFormat:@"\t\t_%@ = %@;",property.propertyName,property.propertyName],
+             @"\t}",
+             [NSString stringWithFormat:@"\treturn _%@;",property.propertyName],
+             @"}",
+             @"\n"
+             ];
+}
 
 + (NSArray*)commonTemplatelines:(XMSourceOCProperty*)property
 {
     return @[[NSString stringWithFormat:@"- (%@ *)%@",property.className,property.propertyName],
              @"{",
              [NSString stringWithFormat:@"\tif (!_%@) {",property.propertyName],
-             [NSString stringWithFormat:@"\t\t%@ *%@ = [[%@ alloc] init];",property.propertyName,property.className,property.className],
+             [NSString stringWithFormat:@"\t\t%@ *%@ = [[%@ alloc] init];",property.className,property.propertyName,property.className],
              [NSString stringWithFormat:@"\t\t_%@ = %@;",property.propertyName,property.propertyName],
              @"\t}",
              [NSString stringWithFormat:@"\treturn _%@;",property.propertyName],
