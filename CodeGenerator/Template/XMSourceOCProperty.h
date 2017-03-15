@@ -14,7 +14,7 @@ typedef NS_ENUM(NSUInteger, XMVariableInferType) {
     XMVariableInferTypeView      =   0x10001,
     XMVariableInferTypeModel     =   0x10010,
     XMVariableInferTypeRequest   =   0x10011,
-    XMVariableInferTypeUnknown   =   0x10100,
+    XMVariableInferTypeUnknown   =   0x100000,
 };
 
 @interface XMSourceOCProperty : NSObject

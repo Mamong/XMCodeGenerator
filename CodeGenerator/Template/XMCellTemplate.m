@@ -18,7 +18,6 @@
     self.drawCellLines = [XMCellTemplate drawCellTemplatelines:self.properties];
     self.reloadLines = [XMCellTemplate reloadTemplatelines];
     self.heightLines = [XMCellTemplate heightTemplatelines];
-    self.actionLines = [XMCellTemplate actionsTemplatelines:self.properties];
     NSRange range = NSMakeRange(0,[self.heightLines count]);
     [self.lines insertObjects:self.heightLines atIndexes:[NSIndexSet indexSetWithIndexesInRange:range]];
     
@@ -73,31 +72,5 @@
              ];
 }
 
-+ (NSArray*)actionsTemplatelines:(NSArray<XMSourceOCProperty*>*)properties
-{
-    NSMutableArray *lines = [NSMutableArray array];
-    //NSMutableArray *buttons = [NSMutableArray array];
-    NSMutableArray *textFields = [NSMutableArray array];
-    for (XMSourceOCProperty *property in properties) {
-        if ([property.className isEqualToString:@"UIButton"]) {
-            //[buttons addObject:property];
-            [lines addObjectsFromArray:@[[NSString stringWithFormat:@"- (void)handle%@:(UIButton*)button",[property.propertyName stringByUpperFirstCharacter]],
-                                         @"{",
-                                         @"}",
-                                         @"\n"
-                                         ]];
-        }else if ([property.className isEqualToString:@"UITextField"]) {
-            [textFields addObject:property];
-        }
-    }
-    if (textFields.count > 0) {
-        [lines addObjectsFromArray:@[@"- (void)textFieldChanged:(UITextField*)textField",
-                                     @"{",
-                                     @"}",
-                                     @"\n"
-                                      ]];
-    }
-    return lines;
-}
 
 @end

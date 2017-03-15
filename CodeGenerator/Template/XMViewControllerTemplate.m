@@ -30,7 +30,7 @@
     for (int i = 0; i < properties.count; i++) {
         XMSourceOCProperty *property = properties[i];
         if (property.inferType == XMVariableInferTypeView) {
-            [lines addObject:[NSString stringWithFormat:@"\t[self.view addSubView:self.%@];",property.propertyName]];
+            [lines addObject:[NSString stringWithFormat:@"\t[self.view addSubview:self.%@];",property.propertyName]];
         }
     }
     [lines addObject:@"}"];

@@ -14,7 +14,11 @@
 
 @property (nonatomic, readonly, strong)NSArray<XMSourceOCProperty*> *properties;
 
-@property (nonatomic, readonly, strong)NSArray *propertyLines;
+// only view or view like properties will be generated into lines
+@property (nonatomic, readonly, strong)NSArray *focusPropertyLines;
+
+//
+@property (nonatomic, readonly, strong)NSArray *actionLines;
 
 @property (nonatomic, readonly, strong)NSMutableArray<NSString*> *lines;
 

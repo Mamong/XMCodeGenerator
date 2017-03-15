@@ -84,6 +84,7 @@
     NSRange range = NSMakeRange(currentLine,[lines count]);
     NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
     [buffer.lines insertObjects:lines atIndexes:indexSet];
+    [CodeGenerator insertGeneratorInformation:buffer.lines];
 }
 
 + (void)viewControllerGeneratorCommand:(XCSourceEditorCommandInvocation*)invocation
@@ -104,6 +105,7 @@
     NSRange range = NSMakeRange(currentLine,[lines count]);
     NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
     [buffer.lines insertObjects:lines atIndexes:indexSet];
+    [CodeGenerator insertGeneratorInformation:buffer.lines];
 }
 
 #pragma mark - Private
@@ -141,4 +143,36 @@
     }
     return properties;
 }
+
++ (void)insertGeneratorInformation:(NSMutableArray*)lines
+{
+    if (lines.count >= 8) {
+        NSString *line = [lines objectAtIndex:7];
+        line = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if (line.length == 0) {
+            NSArray *informationLines = @[@"/*---------------XMCodeGenerator information--------------",
+                                          @"",
+                                          @"\t\t\t    Home:https://github.com/Mamong/XMCodeGenerator",
+                                          [NSString stringWithFormat:@"\t\t\tVersion:\t%@",[CodeGenerator shortVersionString]],
+                                          [NSString stringWithFormat:@"\t\t\t  Build:\t%@",[CodeGenerator bundleVersion]],
+                                          @"--------------------------END----------------------------*/",
+                                          @""
+                                          ];
+            NSRange range = NSMakeRange(7,[informationLines count]);
+            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
+            [lines insertObjects:informationLines atIndexes:indexSet];
+        }
+    }
+}
+                      
++ (NSString*)shortVersionString
+{
+    return [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"];
+}
+
++ (NSString*)bundleVersion
+{
+    return [[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleVersionKey];
+}
+
 @end
