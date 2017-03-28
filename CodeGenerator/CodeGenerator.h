@@ -18,5 +18,5 @@
 
 + (void)viewControllerGeneratorCommand:(XCSourceEditorCommandInvocation*)invocation;
 
-
++ (void)commentSelectionCommand:(XCSourceEditorCommandInvocation*)invocation;
 @end

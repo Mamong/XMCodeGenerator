@@ -25,6 +25,8 @@
     }else if ([identifier hasSuffix:@"GenerateVC"]) {
         //生成VC代码
         [CodeGenerator viewControllerGeneratorCommand:invocation];
+    }else if ([identifier hasSuffix:@"CommentSelection"]) {
+        [CodeGenerator commentSelectionCommand:invocation];
     }
 
 

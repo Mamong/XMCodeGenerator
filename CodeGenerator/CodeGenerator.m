@@ -108,6 +108,26 @@
     [CodeGenerator insertGeneratorInformation:buffer.lines];
 }
 
++ (void)commentSelectionCommand:(XCSourceEditorCommandInvocation*)invocation
+{
+    XCSourceTextBuffer *buffer = invocation.buffer;
+    NSMutableArray *lines = buffer.lines;
+    NSArray *selections = invocation.buffer.selections;
+    for (XCSourceTextRange *textRange in selections) {
+        NSInteger startLine = textRange.start.line;
+        NSInteger endLine = textRange.end.line;
+        if (textRange.end.column == 0) endLine -= 1;
+        for (NSInteger i = startLine; i <= endLine; i++) {
+            NSString *line = [lines objectAtIndex:i];
+            if ([line hasPrefix:@"//"]) {
+                [lines replaceObjectAtIndex:i withObject:[line substringFromIndex:2]];
+            }else{
+                [lines replaceObjectAtIndex:i withObject:[NSString stringWithFormat:@"//%@",line]];
+            }
+        }
+    }
+}
+
 #pragma mark - Private
 + (NSArray*)parsePropertiesFromLines:(NSArray*)lines
 {

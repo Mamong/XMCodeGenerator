@@ -148,22 +148,6 @@
              ];
 }
 
-/*
- - (UIButton *)payButton{
- if (!_payButton) {
- UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 61, 32)];
- button.layer.cornerRadius = 16;
- button.layer.masksToBounds = YES;
- button.backgroundColor = RGB(255, 151, 41);
- [button setTitleColor:Color_White forState:UIControlStateNormal];
- button.titleLabel.font = FONT(15);
- [button setTitle:@"买单" forState:UIControlStateNormal];
- [button addTarget:self action:@selector(handlePayButton) forControlEvents:UIControlEventTouchUpInside];
- _payButton = button;
- }
- return _payButton;
- }*/
-
 + (NSArray*)viewTemplatelines:(XMSourceOCProperty*)property
 {
     return @[[NSString stringWithFormat:@"- (%@ *)%@",property.className,property.propertyName],
@@ -178,18 +162,6 @@
              @"\n"
              ];
 }
-
-/*
- - (UIView*)line
- {
- if (!_line) {
- UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 20, LINE_WIDTH)];
- view.backgroundColor = Color_Gray224;
- _line = view;
- }
- return _line;
- }
- */
 
 + (NSArray*)imageViewTemplatelines:(XMSourceOCProperty*)property
 {
@@ -209,16 +181,6 @@
              ];
 }
 
-/*
- - (UIImageView *)iconView{
- if (!_iconView) {
- UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-20, 143)];
- _iconView = imageView;
- }
- return _iconView;
- }
- */
-
 + (NSArray*)textFieldTemplatelines:(XMSourceOCProperty*)property
 {
     return @[[NSString stringWithFormat:@"- (%@ *)%@",property.className,property.propertyName],
@@ -237,22 +199,6 @@
              @"\n"
              ];
 }
-
-/*
- - (UITextField *)payTextField{
- if (!_payTextField) {
- UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 0, 250, 40)];
- //label.textColor = Color_Gray204;
- textField.font = FONT(14);
- textField.placeholder = @"到店服务后可买单支付";
- textField.keyboardType = UIKeyboardTypeDecimalPad;
- textField.delegate = self;
- [textField addTarget:self action:@selector(textFieldChanged:) forControlEvents:UIControlEventEditingChanged];
- _payTextField = textField;
- }
- return _payTextField;
- }
- */
 
 + (NSArray*)textViewTemplatelines:(XMSourceOCProperty*)property
 {
