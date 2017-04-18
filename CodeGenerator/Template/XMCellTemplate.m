@@ -27,7 +27,7 @@
     range.length = self.drawCellLines.count;
     [self.lines insertObjects:self.drawCellLines atIndexes:[NSIndexSet indexSetWithIndexesInRange:range]];
     
-    [self.lines addObjectsFromArray:self.actionLines];
+    //[self.lines addObjectsFromArray:self.actionLines];
     return success;
 }
 
@@ -67,6 +67,7 @@
              @"\tif (cellData) {",
              @"\t\theight = 46;",
              @"\t}",
+             @"\treturn height;",
              @"}",
              @"\n",
              ];

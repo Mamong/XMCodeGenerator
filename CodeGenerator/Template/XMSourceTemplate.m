@@ -358,7 +358,6 @@
     NSMutableArray *segment = [NSMutableArray array];
     NSMutableArray *picker = [NSMutableArray array];
 
-    [lines addObject:@"#pragma mark - Actions"];
     for (XMSourceOCProperty *property in properties) {
         if ([property.className isEqualToString:@"UIButton"]) {
             //[buttons addObject:property];
@@ -407,6 +406,9 @@
                                      @"}",
                                      @"\n"
                                      ]];
+    }
+    if (lines.count > 0) {
+        [lines insertObject:@"#pragma mark - Actions" atIndex:0];
     }
     return lines;
 }

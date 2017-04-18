@@ -173,8 +173,8 @@
             NSArray *informationLines = @[@"/*---------------XMCodeGenerator information--------------",
                                           @"",
                                           @"\t\t\t    Home:https://github.com/Mamong/XMCodeGenerator",
-                                          [NSString stringWithFormat:@"\t\t\tVersion:\t%@",[CodeGenerator shortVersionString]],
-                                          [NSString stringWithFormat:@"\t\t\t  Build:\t%@",[CodeGenerator bundleVersion]],
+                                          [NSString stringWithFormat:@"\t\t\t Version:\t%@",[CodeGenerator shortVersionString]],
+                                          [NSString stringWithFormat:@"\t\t\t   Build:\t%@",[CodeGenerator bundleVersion]],
                                           @"--------------------------END----------------------------*/",
                                           @""
                                           ];
