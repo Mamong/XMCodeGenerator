@@ -143,9 +143,11 @@
             NSString *propertyString = [line substringWithRange:range];
             propertyString = [propertyString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
             NSArray *components;
-            if ([propertyString rangeOfString:@"*"].location != NSNotFound) {
+            NSRange starRange = [propertyString rangeOfString:@"*" options:NSBackwardsSearch];
+            if (starRange.location != NSNotFound) {
                 property.isObject = YES;
-                components = [propertyString componentsSeparatedByString:@"*"];
+                propertyString = [propertyString stringByReplacingCharactersInRange:starRange withString:@"#"];
+                components = [propertyString componentsSeparatedByString:@"#"];
                 
             }else{
                 property.isObject = NO;
